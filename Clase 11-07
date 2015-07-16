@@ -1,0 +1,55 @@
+/*
+Disparadores de Tipo After (comunmente se usan para automatizar tareas) 
+*/
+/*
+Problema: Se desea ralizar un back up en un sistema de base de datos wen oracle. Se tiene la tabla:
+
+usuario_xxx
+nombre  varchar2 (120)
+edad    integer
+
+y se requiere que al guardar un usuario se generen 2 registros en las tablas siguientes
+
+xxx_menores                             
+nombre  varchar2(120)
+edad    integer
+
+
+xxx_mayores 
+nombre  varchar2 (120)
+edad    integer
+
+Se deberá  aplicar la siguiente regla: 
+Al insertar  un usuario cuya edad sea menor de 18 años se deberá además guardar en la tabla "xxx_meores",
+si es mayor o igual a 18, deberá guardarse además en la tabla "xxx_mayores".
+
+*/
+
+Ejercicio 
+  
+  CREATE TABLE USUARIO_XXX (
+   NOMBRE VARCHAR2 (120),
+   EDAD INTEGER);
+   
+  CREATE TABLE MENORES_XXX ( 
+   NOMBRE VARCHAR2 (120),
+   EDAD INTEGER);
+  
+  CREATE TABLE MAYORES_XXX (
+   NOMBRE VARCHAR2 (120),
+   EDAD INTEGER);
+
+    /*
+    DISPARADOR
+    */
+    
+    CREATE OR REPLACE TRIGGER RESPALDO_XXX AFTER INSERT ON USUARIO_XXX FOR EACH ROW
+    BEGIN 
+    IF :NEW.EDAD <18 THEN
+      INSERT INTO XXX_MENORES VALUES (:NEW.NOMBRE,:NEW.EDAD);
+    ELSE
+      INSERT INTO XXX_MAYORES VALUES (:NEW.NOMBRE,:NEW.EDAD);
+    END;
+    /
+    
+    INSERT INTO USUARIO_XXX VALUES ('ERICK',13);
