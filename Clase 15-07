@@ -1,0 +1,25 @@
+Arquitectura del Proyecto Final
+
+Ap distribuido Datacentrica
+
+°Ingredientes
+-Servidor con ip fija (con servidor fijo distribuir una IP fija)
+-Servidor de base de datos (Oracle) (*puerto lisener por default es 1521) 
+-Servidor Web (comunicar clientes atravez de el protocolo HTTP)(Apache,glassfish,jBoss,tomcat,Weblogic...)
+  Funcion del servidor Web
+    Los clientes HTTP se comuniquen con el  servidor 
+    
+        |▀| *Sevidor   |▄|  |▄|  |▄|* Clientes 
+        
+*Diagrama Foto   
+  °Patron  de Diseño 
+  Modelo Vista Controlador (MVC), Tiers(capas)
+  Que se comuniquen de forma transparente las capas, se comunican solamente para pasarse datos (Transparencia)  
+    Capa model (Oracle) (Logica de Oracle , tablas cursores, disparadores....)
+    Capa controller (Tomcat) (Tiene que ser multiconcurrente, que sepa controlar las solicitudes de los clientes sin que se colapse)
+      Vista.-lo que el cliente ve, interface de usuario,  puede ser una pagina web, un celular ...
+        El patron de diseño queda visto en un ejemplo asi: 
+          Model                   
+          Controller               
+          Vista                    
+-
